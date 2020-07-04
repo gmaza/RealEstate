@@ -14,12 +14,12 @@ namespace Application.Common.Mappings
 
         private void ApplyMappingsFromAssembly(Assembly assembly)
         {
-            var types = assembly.GetExportedTypes()
+            var mapFromTypes = assembly.GetExportedTypes()
                 .Where(t => t.GetInterfaces().Any(i => 
                     i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapFrom<>)))
                 .ToList();
 
-            foreach (var type in types)
+            foreach (var type in mapFromTypes)
             {
                 var instance = Activator.CreateInstance(type);
 
@@ -28,6 +28,22 @@ namespace Application.Common.Mappings
                 
                 methodInfo?.Invoke(instance, new object[] { this });
 
+            }
+
+
+            var mapToTypes = assembly.GetExportedTypes()
+                .Where(t => t.GetInterfaces().Any(i => 
+                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IMapTo<>)))
+                .ToList();
+
+            foreach (var type in mapToTypes)
+            {
+                var instance = Activator.CreateInstance(type);
+
+                var methodInfo = type.GetMethod("Mapping") 
+                    ?? type.GetInterface("IMapTo`1").GetMethod("Mapping");
+                
+                methodInfo?.Invoke(instance, new object[] { this });
             }
         }
     }

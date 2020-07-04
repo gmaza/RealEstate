@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Domain.Common;
+using Domain.Entities;
 using Domain.Extensions;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,18 @@ namespace Infrastructure.Persistence
         private readonly ICurrentUserService _currentUserService;
         private readonly IDateTime _dateTime;
 
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Listing> Listings { get; set; }
+        public DbSet<ListingImage> ListingImages { get; set; }
+        public DbSet<BuildingType> BuildingTypes { get; set; }
+        public DbSet<OfferType> OfferTypes { get; set; }
+        public DbSet<PropertyFeature> PropertyFeatures { get; set; }
+        public DbSet<PropertyLayout> PropertyLayouts { get; set; }
+        public DbSet<PropertyType> PropertyTypes { get; set; }
+        public DbSet<OwnershipType> OwnershipTypes { get; set; }
+        public DbSet<PropertyCondition> PropertyConditions { get; set; }
+        public DbSet<LandType> LandTypes { get; set; }
+
         public ApplicationDbContext(
             DbContextOptions options,
             ICurrentUserService currentUserService,
@@ -33,11 +46,11 @@ namespace Infrastructure.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entry.Entity.CreatedBy = _currentUserService.UserId;
+                        entry.Entity.CreatedBy = _currentUserService.UserId.Value;
                         entry.Entity.Created = _dateTime.Now;
                         break;
                     case EntityState.Modified:
-                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId.Value;
                         entry.Entity.LastModified = _dateTime.Now;
                         break;
                 }
@@ -51,7 +64,6 @@ namespace Infrastructure.Persistence
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(builder);
             ConfigureIdentity(builder);
-            ConfigureDB(builder);
         }
 
         private void ConfigureIdentity(ModelBuilder builder)

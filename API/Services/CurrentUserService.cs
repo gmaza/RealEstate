@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Security.Claims;
 
 namespace API.Services
@@ -8,9 +9,12 @@ namespace API.Services
     {
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (userId != null)
+                UserId = Guid.Parse(userId);
         }
 
-        public string UserId { get; }
+        public Guid? UserId { get; }
     }
 }

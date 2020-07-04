@@ -25,30 +25,28 @@ namespace Infrastructure.Identity
             _config = config;
         }
 
-        public async Task<string> GetUserNameAsync(string userId)
+        public async Task<string> GetUserNameAsync(Guid userId)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id.ToString() == userId);
+            var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
 
             return user.UserName;
         }
-        public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password, string firstName, string lastName)
+        public async Task<(Result Result, Guid UserId)> CreateUserAsync(string userName, string password)
         {
             var user = new User
             {
                 UserName = userName,
-                Email = userName,
-                FirstName = firstName,
-                LastName = lastName
+                Email = userName
             };
 
             var result = await _userManager.CreateAsync(user, password);
 
-            return (result.ToApplicationResult(), user.Id.ToString());
+            return (result.ToApplicationResult(), user.Id);
         }
 
-        public async Task<Result> DeleteUserAsync(string userId)
+        public async Task<Result> DeleteUserAsync(Guid userId)
         {
-            var user = _userManager.Users.SingleOrDefault(u => u.Id.ToString() == userId);
+            var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
 
             if (user != null)
             {
@@ -65,32 +63,6 @@ namespace Infrastructure.Identity
             return result.ToApplicationResult();
         }
 
-        private string GetJwtToken(User user)
-        {
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
-        }
-
         public async Task<bool> UserWithEmailExists(string email)
         {
             var user = await _userManager.FindByNameAsync(email);
@@ -98,21 +70,15 @@ namespace Infrastructure.Identity
             return user != null;
         }
 
-        public async Task<UserDto> SignInUserAsync(string userName, string password)
+        public async Task<(Result Result, Guid? userId)> SignInUserAsync(string userName, string password)
         {
             var user = await _userManager.FindByNameAsync(userName);
             var passwordCorrect = await _userManager.CheckPasswordAsync(user, password);
             
             if (!passwordCorrect)
-                return null;
+                return (Result.Failure(new string[] {"Username or password is incorrect"}), null);
 
-            return new UserDto
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Email = user.Email,
-                Token = GetJwtToken(user)
-            };
+            return (Result.Success(), user.Id);
         }
     }
 }

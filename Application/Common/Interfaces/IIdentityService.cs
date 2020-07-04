@@ -9,10 +9,10 @@ namespace Application.Common.Interfaces
 {
     public interface IIdentityService
     {
-        Task<string> GetUserNameAsync(string userId);
-        Task<UserDto> SignInUserAsync(string userName, string password);
-        Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password, string firstName, string lastName);
-        Task<Result> DeleteUserAsync(string userId);
+        Task<string> GetUserNameAsync(Guid userId);
+        Task<(Result Result, Guid? userId)> SignInUserAsync(string userName, string password);
+        Task<(Result Result, Guid UserId)> CreateUserAsync(string userName, string password);
+        Task<Result> DeleteUserAsync(Guid userId);
         Task<bool> UserWithEmailExists(string email);
     }
 }
