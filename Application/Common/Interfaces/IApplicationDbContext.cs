@@ -23,6 +23,7 @@ namespace Application.Common.Interfaces
         DbSet<LandType> LandTypes { get; set; }
         DbSet<Furnishing> Furnishings { get; set; }
         DbSet<EnergyCertificate> EnergyCertificates { get; set; }
+        DbSet<FavoriteListing> FavoriteListings { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

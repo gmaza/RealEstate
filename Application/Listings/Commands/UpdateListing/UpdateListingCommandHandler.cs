@@ -23,6 +23,8 @@ namespace Application.Listings.Commands.UpdateListing
             var listing = await _context.Listings.FindAsync(request.Id);
             _mapper.Map(request, listing);
 
+            await _context.SaveChangesAsync(cancellationToken);
+
             return Unit.Value;
         }
     }
