@@ -14,5 +14,6 @@ namespace Domain.Entities
         public string Email { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public ICollection<Listing> Listings { get; set; }
+        public ICollection<FavoriteListing> FavoriteListings { get; set; }
     }
 }

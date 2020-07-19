@@ -54,6 +54,7 @@ namespace Domain.Entities
 
         public ICollection<ListingFeature> Features { get; set; }
         public ICollection<ListingImage> Images { get; set; }
+        public ICollection<FavoriteListing> FavoriteListings { get; set; }
 
         public string GetLocalizedDesciption()
         {
