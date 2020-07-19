@@ -137,83 +137,13 @@ export const Information = (props) => {
 
             <Grid item xs={12} container direction="row" wrap="nowrap">
                 <Box width={1} mr={2}>
-                    <Autocomplete
-                        id="google-map-demo"
-                        style={{ width: 300 }}
-                        getOptionLabel={(option) =>
-                            typeof option === 'string'
-                                ? option
-                                : option.description
+                    <StyledOutlinedInput
+                        placeholder="Address"
+                        startAdornment={
+                            <InputAdornment>
+                                <LocationIcon />
+                            </InputAdornment>
                         }
-                        filterOptions={(x) => x}
-                        options={options}
-                        autoComplete
-                        includeInputInList
-                        filterSelectedOptions
-                        value={value}
-                        onChange={(event, newValue) => {
-                            setOptions(
-                                newValue ? [newValue, ...options] : options
-                            );
-                            setValue(newValue);
-                        }}
-                        onInputChange={(event, newInputValue) => {
-                            setInputValue(newInputValue);
-                        }}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="Add a location"
-                                variant="outlined"
-                                fullWidth
-                            />
-                        )}
-                        renderOption={(option) => {
-                            const matches =
-                                option.structured_formatting
-                                    .main_text_matched_substrings;
-                            const parts = parse(
-                                option.structured_formatting.main_text,
-                                matches.map((match) => [
-                                    match.offset,
-                                    match.offset + match.length,
-                                ])
-                            );
-
-                            return (
-                                <Grid container alignItems="center">
-                                    <Grid item>
-                                        <LocationOnIcon
-                                            className={classes.icon}
-                                        />
-                                    </Grid>
-                                    <Grid item xs>
-                                        {parts.map((part, index) => (
-                                            <span
-                                                key={index}
-                                                style={{
-                                                    fontWeight: part.highlight
-                                                        ? 700
-                                                        : 400,
-                                                }}
-                                            >
-                                                {part.text}
-                                            </span>
-                                        ))}
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                        >
-                                            {
-                                                option.structured_formatting
-                                                    .secondary_text
-                                            }
-                                        </Typography>
-                                    </Grid>
-                                </Grid>
-                            );
-                        }}
                     />
                 </Box>
                 <Box minWidth="56px">
