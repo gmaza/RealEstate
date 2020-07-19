@@ -29,6 +29,8 @@ namespace Infrastructure.Persistence
         public DbSet<OwnershipType> OwnershipTypes { get; set; }
         public DbSet<PropertyCondition> PropertyConditions { get; set; }
         public DbSet<LandType> LandTypes { get; set; }
+        public DbSet<Furnishing> Furnishings { get; set; }
+        public DbSet<EnergyCertificate> EnergyCertificates { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,

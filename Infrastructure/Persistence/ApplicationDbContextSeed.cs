@@ -464,6 +464,96 @@ namespace Infrastructure.Persistence
                 context.LandTypes.AddRange(landTypes);
                 context.SaveChanges();
             }
+
+            if (!context.Furnishings.Any())
+            {
+                List<Furnishing> furnishings = new List<Furnishing>
+                {
+                    new Furnishing
+                    {
+                        Id = 1,
+                        NameCZ = "",
+                        NameEN = "Unfurnished",
+                        NameRU = ""
+                    },
+                    new Furnishing
+                    {
+                        Id = 2,
+                        NameCZ = "",
+                        NameEN = "Partially furnished",
+                        NameRU = ""
+                    },
+                    new Furnishing
+                    {
+                        Id = 3,
+                        NameCZ = "",
+                        NameEN = "Furnished",
+                        NameRU = ""
+                    }
+                };
+
+                context.Furnishings.AddRange(furnishings);
+                context.SaveChanges();
+            }
+
+            if (!context.EnergyCertificates.Any())
+            {
+                List<EnergyCertificate> energyCertificates = new List<EnergyCertificate>
+                {
+                    new EnergyCertificate
+                    {
+                        Id = 1,
+                        NameCZ = "",
+                        NameEN = "A",
+                        NameRU = ""
+                    },
+                    new EnergyCertificate
+                    {
+                        Id = 2,
+                        NameCZ = "",
+                        NameEN = "B",
+                        NameRU = ""
+                    },
+                    new EnergyCertificate
+                    {
+                        Id = 3,
+                        NameCZ = "",
+                        NameEN = "C",
+                        NameRU = ""
+                    },
+                    new EnergyCertificate
+                    {
+                        Id = 4,
+                        NameCZ = "",
+                        NameEN = "D",
+                        NameRU = ""
+                    },
+                    new EnergyCertificate
+                    {
+                        Id = 5,
+                        NameCZ = "",
+                        NameEN = "E",
+                        NameRU = ""
+                    },
+                    new EnergyCertificate
+                    {
+                        Id = 6,
+                        NameCZ = "",
+                        NameEN = "F",
+                        NameRU = ""
+                    },
+                    new EnergyCertificate
+                    {
+                        Id = 7,
+                        NameCZ = "",
+                        NameEN = "G - etremely inefficient",
+                        NameRU = ""
+                    }
+                };
+
+                context.EnergyCertificates.AddRange(energyCertificates);
+                context.SaveChanges();
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Domain.Entities
 {
@@ -25,6 +26,10 @@ namespace Domain.Entities
         public PropertyCondition PropertyCondition { get; set; }
         public int? LandTypeId { get; set; }
         public LandType LandType { get; set; }
+        public int? FurnishingId { get; set; }
+        public Furnishing Furnishing { get; set; }
+        public int? EnergyCertificateId { get; set; }
+        public EnergyCertificate EnergyCertificate { get; set; }
         public int? Floor { get; set; }
         public int Area { get; set; }
         public string DescriptionEN { get; set; }
@@ -49,5 +54,20 @@ namespace Domain.Entities
 
         public ICollection<ListingFeature> Features { get; set; }
         public ICollection<ListingImage> Images { get; set; }
+
+        public string GetLocalizedDesciption()
+        {
+            string culture = Thread.CurrentThread.CurrentCulture.Name;
+
+            string description = culture switch
+            {
+                "cs-CZ" => DescriptionCZ,
+                "cu-RU" => DescriptionRU,
+                "en-US" => DescriptionEN,
+                _ => DescriptionEN,
+            };
+
+            return description;
+        }
     }
 }

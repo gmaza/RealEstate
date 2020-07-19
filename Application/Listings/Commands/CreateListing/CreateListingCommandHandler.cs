@@ -4,10 +4,11 @@ using Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Listings.Commands
+namespace Application.Listings.Commands.CreateListing
 {
     public class CreateListingCommandHandler : IRequestHandler<CreateListingCommand, long>
     {
@@ -30,6 +31,13 @@ namespace Application.Listings.Commands
             var applicationUser = await _context.ApplicationUsers.FirstOrDefaultAsync(x => x.IdentityUserId == currentUserId);
 
             listing.OwnerId = applicationUser.Id;
+
+            listing.Images = request.ImageUrls.Select((url, indx) => new ListingImage
+            {
+                Url = url,
+                SortOrder = indx
+            }).ToList();
+
             _context.Listings.Add(listing);
 
 

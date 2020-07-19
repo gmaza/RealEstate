@@ -21,6 +21,8 @@ namespace Application.Common.Interfaces
         DbSet<OwnershipType> OwnershipTypes { get; set; }
         DbSet<PropertyCondition> PropertyConditions { get; set; }
         DbSet<LandType> LandTypes { get; set; }
+        DbSet<Furnishing> Furnishings { get; set; }
+        DbSet<EnergyCertificate> EnergyCertificates { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

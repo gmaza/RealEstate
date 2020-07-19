@@ -64,6 +64,44 @@ namespace Infrastructure.Migrations
                     b.ToTable("BuildingTypes");
                 });
 
+            modelBuilder.Entity("Domain.Entities.EnergyCertificate", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("NameCZ")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameEN")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameRU")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EnergyCertificates");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Furnishing", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("NameCZ")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameEN")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NameRU")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Furnishings");
+                });
+
             modelBuilder.Entity("Domain.Entities.LandType", b =>
                 {
                     b.Property<int>("Id")
@@ -120,10 +158,16 @@ namespace Infrastructure.Migrations
                     b.Property<string>("DescriptionRU")
                         .HasColumnType("text");
 
+                    b.Property<int?>("EnergyCertificateId")
+                        .HasColumnType("integer");
+
                     b.Property<decimal?>("Fees")
                         .HasColumnType("numeric");
 
                     b.Property<int?>("Floor")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("FurnishingId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("LandTypeId")
@@ -180,6 +224,10 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BuildingTypeId");
+
+                    b.HasIndex("EnergyCertificateId");
+
+                    b.HasIndex("FurnishingId");
 
                     b.HasIndex("LandTypeId");
 
@@ -547,6 +595,14 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.BuildingType", "BuildingType")
                         .WithMany("Listings")
                         .HasForeignKey("BuildingTypeId");
+
+                    b.HasOne("Domain.Entities.EnergyCertificate", "EnergyCertificate")
+                        .WithMany("Listings")
+                        .HasForeignKey("EnergyCertificateId");
+
+                    b.HasOne("Domain.Entities.Furnishing", "Furnishing")
+                        .WithMany("Listings")
+                        .HasForeignKey("FurnishingId");
 
                     b.HasOne("Domain.Entities.LandType", "LandType")
                         .WithMany("Listings")

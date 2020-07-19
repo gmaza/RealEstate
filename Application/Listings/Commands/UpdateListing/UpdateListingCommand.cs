@@ -3,10 +3,11 @@ using Domain.Entities;
 using MediatR;
 using System;
 
-namespace Application.Listings.Commands
+namespace Application.Listings.Commands.UpdateListing
 {
-    public class CreateListingCommand : IRequest<long>, IMapTo<Listing>
+    public class UpdateListingCommand : IRequest, IMapTo<Listing>
     {
+        public long Id { get; set; }
         public int OfferTypeId { get; set; }
         public int PropertyTypeId { get; set; }
         public int? PropertyLayoutId { get; set; }

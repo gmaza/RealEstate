@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using API.Filters;
+using API.Helpers;
 using API.Services;
 using Application;
 using Application.Common.Interfaces;
@@ -52,6 +53,10 @@ namespace API
                 options.SuppressModelStateInvalidFilter = true;
             });
 
+            services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -64,6 +69,7 @@ namespace API
                         ValidateAudience = false
                     };
                 });
+
 
             services.AddControllers()
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -86,11 +92,15 @@ namespace API
 
             app.UseHealthChecks("/health");
             app.UseHttpsRedirection();
+            app.UseCors(builder => 
+                builder.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
 
             app.UseSwagger();
 
@@ -98,6 +108,7 @@ namespace API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
 
             app.UseEndpoints(endpoints =>
             {
