@@ -16,5 +16,6 @@ namespace Domain.Entities
         public DateTime? DateOfBirth { get; set; }
         public ICollection<Listing> Listings { get; set; }
         public ICollection<FavoriteListing> FavoriteListings { get; set; }
+        public ICollection<PaymentTransaction> PaymentTransactions { get; set; }
     }
 }

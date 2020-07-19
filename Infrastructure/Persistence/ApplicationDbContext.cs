@@ -34,6 +34,8 @@ namespace Infrastructure.Persistence
         public DbSet<FavoriteListing> FavoriteListings { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<ListingService> ListingServices { get; set; }
+        public DbSet<PaymentTransaction> PaymentTransactions { get; set; }
+
 
         public ApplicationDbContext(
             DbContextOptions options,

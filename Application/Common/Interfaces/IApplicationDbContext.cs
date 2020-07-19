@@ -26,6 +26,7 @@ namespace Application.Common.Interfaces
         DbSet<FavoriteListing> FavoriteListings { get; set; }
         DbSet<Service> Services { get; set; }
         DbSet<ListingService> ListingServices { get; set; }
+        DbSet<PaymentTransaction> PaymentTransactions { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

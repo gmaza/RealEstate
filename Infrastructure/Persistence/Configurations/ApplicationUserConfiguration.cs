@@ -10,7 +10,11 @@ namespace Infrastructure.Persistence.Configurations
         {
             builder.HasMany(x => x.Listings)
                 .WithOne(li => li.Owner)
-                .HasForeignKey(x => x.OwnerId);
+                .HasForeignKey(li => li.OwnerId);
+
+            builder.HasMany(x => x.PaymentTransactions)
+                .WithOne(p => p.ApplicationUser)
+                .HasForeignKey(p => p.ApplicationUserId);
         }
     }
 }

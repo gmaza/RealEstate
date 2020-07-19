@@ -3,7 +3,7 @@ using System;
 
 namespace Domain.Entities
 {
-    public class TransactionHistory : AuditableEntity
+    public class PaymentTransaction : AuditableEntity
     {
         public Guid Id { get; set; }
         public Guid ApplicationUserId { get; set; }
