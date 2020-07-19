@@ -14,5 +14,6 @@ namespace Application.Common.Interfaces
         Task<(Result Result, Guid UserId)> CreateUserAsync(string userName, string password);
         Task<Result> DeleteUserAsync(Guid userId);
         Task<bool> UserWithEmailExists(string email);
+        Task<Result> UpdateUserEmailAsync(Guid userId, string email);
     }
 }

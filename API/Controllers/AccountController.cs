@@ -1,5 +1,6 @@
 ﻿using Application.Accounts.Commands.Login;
 using Application.Accounts.Commands.Register;
+using Application.Accounts.Commands.UpdatePersonalInfo;
 using Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,14 @@ namespace API.Controllers
 
         [HttpPost("[action]")]
         public async Task<ActionResult> Register(RegisterCommand command)
+        {
+            await Mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpPut("[action]")]
+        public async Task<ActionResult> UpdatePersonalInfo(UpdatePersonalInfoCommand command)
         {
             await Mediator.Send(command);
 
