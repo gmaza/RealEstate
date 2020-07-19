@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200719112330_FavoriteListing")]
-    partial class FavoriteListing
+    [Migration("20200719124849_FavoriteListings")]
+    partial class FavoriteListings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -97,7 +97,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ListingId");
 
-                    b.ToTable("FavoriteListing");
+                    b.ToTable("FavoriteListings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Furnishing", b =>

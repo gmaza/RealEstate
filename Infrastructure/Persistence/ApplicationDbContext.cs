@@ -31,6 +31,7 @@ namespace Infrastructure.Persistence
         public DbSet<LandType> LandTypes { get; set; }
         public DbSet<Furnishing> Furnishings { get; set; }
         public DbSet<EnergyCertificate> EnergyCertificates { get; set; }
+        public DbSet<FavoriteListing> FavoriteListings { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,

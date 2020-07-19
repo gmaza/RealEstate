@@ -95,7 +95,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ListingId");
 
-                    b.ToTable("FavoriteListing");
+                    b.ToTable("FavoriteListings");
                 });
 
             modelBuilder.Entity("Domain.Entities.Furnishing", b =>

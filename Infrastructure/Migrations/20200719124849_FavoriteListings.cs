@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class FavoriteListing : Migration
+    public partial class FavoriteListings : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FavoriteListing",
+                name: "FavoriteListings",
                 columns: table => new
                 {
                     ApplicationUserId = table.Column<Guid>(nullable: false),
@@ -16,15 +16,15 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavoriteListing", x => new { x.ApplicationUserId, x.ListingId });
+                    table.PrimaryKey("PK_FavoriteListings", x => new { x.ApplicationUserId, x.ListingId });
                     table.ForeignKey(
-                        name: "FK_FavoriteListing_ApplicationUsers_ApplicationUserId",
+                        name: "FK_FavoriteListings_ApplicationUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "ApplicationUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FavoriteListing_Listings_ListingId",
+                        name: "FK_FavoriteListings_Listings_ListingId",
                         column: x => x.ListingId,
                         principalTable: "Listings",
                         principalColumn: "Id",
@@ -32,15 +32,15 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavoriteListing_ListingId",
-                table: "FavoriteListing",
+                name: "IX_FavoriteListings_ListingId",
+                table: "FavoriteListings",
                 column: "ListingId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FavoriteListing");
+                name: "FavoriteListings");
         }
     }
 }
