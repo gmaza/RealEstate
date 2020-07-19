@@ -80,5 +80,18 @@ namespace Infrastructure.Identity
 
             return (Result.Success(), user.Id);
         }
+
+
+        public async Task<Result> UpdateUserEmailAsync(Guid userId, string email)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+
+            user.Email = email;
+            user.UserName = email;
+
+            var result = await _userManager.UpdateAsync(user);
+
+            return result.ToApplicationResult();
+        }
     }
 }
