@@ -24,6 +24,8 @@ namespace Application.Common.Interfaces
         DbSet<Furnishing> Furnishings { get; set; }
         DbSet<EnergyCertificate> EnergyCertificates { get; set; }
         DbSet<FavoriteListing> FavoriteListings { get; set; }
+        DbSet<Service> Services { get; set; }
+        DbSet<ListingService> ListingServices { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

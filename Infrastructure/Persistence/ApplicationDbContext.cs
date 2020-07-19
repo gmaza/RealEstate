@@ -32,6 +32,8 @@ namespace Infrastructure.Persistence
         public DbSet<Furnishing> Furnishings { get; set; }
         public DbSet<EnergyCertificate> EnergyCertificates { get; set; }
         public DbSet<FavoriteListing> FavoriteListings { get; set; }
+        public DbSet<Service> Services { get; set; }
+        public DbSet<ListingService> ListingServices { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,

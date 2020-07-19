@@ -554,6 +554,24 @@ namespace Infrastructure.Persistence
                 context.EnergyCertificates.AddRange(energyCertificates);
                 context.SaveChanges();
             }
+
+            if (!context.Services.Any())
+            {
+                List<Service> services = new List<Service>
+                {
+                    new Service
+                    {
+                        Id = 1,
+                        NameCZ = "",
+                        NameEN = "VIP",
+                        NameRU = "",
+                        CostPerDay = 100
+                    },
+                };
+
+                context.Services.AddRange(services);
+                context.SaveChanges();
+            }
         }
     }
 }
