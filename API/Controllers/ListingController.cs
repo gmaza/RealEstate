@@ -95,5 +95,11 @@ namespace API.Controllers
         {
             return await Mediator.Send(new GetListingFormDataQuery { Id = id });
         }
+		
+		[HttpGet("[action]")]
+        public async Task<ActionResult<ListingFieldOptionsDto>> GetListingFieldOptions()
+        {
+            return await Mediator.Send(new GetListingFieldOptionsQuery());
+        }
     }
 }
